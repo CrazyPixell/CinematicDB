@@ -1,0 +1,29 @@
+.movies {
+  max-width: 110rem;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 1rem;
+  animation: movies-appear 1s ease-out forwards;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.error {
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+}
+
+@keyframes movies-appear {
+  from {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

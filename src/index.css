@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Lato:ital,wght@0,300;0,700;1,400&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-brand: #3282b8;
+  --color-brand-darker: #0f4c75;
+  --color-accent: #ffde7d;
+  --color-accent-darker: #ffd460;
+  --color-text-dark: #333;
+  --color-text-light: #eee;
+  --letter-spacing: 0.05em;
+  --ff-main: 'Lato', sans-serif;
+  --ff-secondary: 'Allerta Stencil', sans-serif;
+}
+
+html {
+  font-family: var(--ff-main);
+}
+
+h1 {
+  font-family: var(--ff-secondary);
+  font-size: 3.5rem;
+  letter-spacing: var(--letter-spacing);
+}
+
+body {
+  margin: 0;
+  background-color: #3f3f3f;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(73, 75, 77, 0.705);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2) inset;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 8px;
+  border: 3px solid var(--color-brand);
+}
