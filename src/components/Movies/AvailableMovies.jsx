@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import classes from './AvailableMovies.module.css';
 import Movie from './Movie/Movie.jsx';
+import LoadingSpinner from '../UI/LoadingSpinner.jsx';
 
 const AvailableMovies = props => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [moviesIsLoaded, setMoviesIsLoaded] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const request = props.searchResult;
+        setIsLoading(true);
+        setMoviesIsLoaded(false);
         const res = await fetch(
           `https://api.themoviedb.org/3/search/movie?api_key=32d5ad6c4894ac245c2a9a46fa82b701&include_adult=false&query=${request}&language=ru-RU`
         );
@@ -36,6 +41,8 @@ const AvailableMovies = props => {
         });
 
         setMovies(movies);
+        setIsLoading(false);
+        setMoviesIsLoaded(true);
       } catch (err) {
         console.error(err);
       }
@@ -45,22 +52,29 @@ const AvailableMovies = props => {
   }, [props.searchResult]);
 
   return (
-    <section className={classes.movies}>
-      {movies.map(movie => {
-        return (
-          <Movie
-            name={movie.title}
-            id={movie.id}
-            key={movie.id}
-            poster={movie.poster}
-            year={movie.year}
-            rating={movie.rating}
-            summary={movie.summary}
-          />
-        );
-      })}
-      {error && <p className={classes.error}>{error}</p>}
-    </section>
+    <>
+      {isLoading && <LoadingSpinner />}
+      <section
+        className={`${classes.movies} ${
+          moviesIsLoaded ? classes['movies-appear'] : ''
+        }`}
+      >
+        {movies.map(movie => {
+          return (
+            <Movie
+              name={movie.title}
+              id={movie.id}
+              key={movie.id}
+              poster={movie.poster}
+              year={movie.year}
+              rating={movie.rating}
+              summary={movie.summary}
+            />
+          );
+        })}
+        {error && <p className={classes.error}>{error}</p>}
+      </section>
+    </>
   );
 };
 

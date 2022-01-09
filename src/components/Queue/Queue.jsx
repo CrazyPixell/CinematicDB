@@ -15,8 +15,6 @@ const Queue = props => {
     queueContext.addItem({ ...item });
   };
 
-  console.log(queueContext);
-
   const cartItems = (
     <ul className={classes['queue-items']}>
       {queueContext.items.map(item => (

@@ -4,7 +4,7 @@ import AvailableMovies from './AvailableMovies.jsx';
 import SearchForm from '../UI/SearchForm';
 
 const Movies = props => {
-  const [searchResult, setSearchResult] = useState('Гарри');
+  const [searchResult, setSearchResult] = useState('Star');
 
   const searchNameHandler = name => {
     setSearchResult(name);

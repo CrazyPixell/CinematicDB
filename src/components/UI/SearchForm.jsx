@@ -3,7 +3,7 @@ import Input from './Input';
 import classes from './SearchForm.module.css';
 
 const SearchForm = props => {
-  const [enteredName, setEnteredName] = useState();
+  const [enteredName, setEnteredName] = useState('');
 
   const nameInputHandler = e => {
     setEnteredName(e.target.value);
@@ -12,6 +12,7 @@ const SearchForm = props => {
   const submitNameHandler = e => {
     e.preventDefault();
     props.onSearchName(enteredName);
+    setEnteredName('');
   };
 
   return (
@@ -22,6 +23,7 @@ const SearchForm = props => {
         label={'Ищи фильмы'}
         placeholder={'Название?'}
         onChange={nameInputHandler}
+        value={enteredName}
       />
       <button className={classes['search__btn']}>Поиск</button>
     </form>
