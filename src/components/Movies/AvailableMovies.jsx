@@ -9,6 +9,8 @@ const AvailableMovies = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [moviesIsLoaded, setMoviesIsLoaded] = useState(true);
 
+  const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -16,7 +18,7 @@ const AvailableMovies = props => {
         setIsLoading(true);
         setMoviesIsLoaded(false);
         const res = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_API_KEY}&include_adult=false&query=${request}&language=ru-RU`
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&include_adult=false&query=${request}&language=ru-RU`
         );
         const resData = await res.json();
         if (!res.ok || res.status === 402) {
