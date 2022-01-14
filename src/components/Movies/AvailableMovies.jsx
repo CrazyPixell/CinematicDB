@@ -36,7 +36,7 @@ const AvailableMovies = props => {
             poster:
               result.poster_path !== null
                 ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
-                : 'Постер не найден. Извините',
+                : 'Постер не найден.',
             year: result.release_date,
             rating: result.vote_average,
           };
