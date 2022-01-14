@@ -51,7 +51,7 @@ const AvailableMovies = props => {
     };
 
     fetchMovies();
-  }, [props.searchResult]);
+  }, [props.searchResult, API_KEY]);
 
   return (
     <>
