@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Input from './Input';
 import classes from './SearchForm.module.css';
 
-const SearchForm = props => {
-  const [enteredName, setEnteredName] = useState('');
+interface SearchFormProps {
+  onSearchName: (name: string) => void;
+}
 
-  const nameInputHandler = e => {
+const SearchForm: React.FC<SearchFormProps> = ({
+  onSearchName,
+}): React.ReactElement => {
+  const [enteredName, setEnteredName] = useState<string>('');
+
+  const nameInputHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setEnteredName(e.target.value);
   };
 
-  const submitNameHandler = e => {
+  const submitNameHandler = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    props.onSearchName(enteredName);
+    onSearchName(enteredName);
     setEnteredName('');
   };
 

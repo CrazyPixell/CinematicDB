@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import classes from './AvailableMovies.module.css';
-import Movie from './Movie/Movie.jsx';
-import LoadingSpinner from '../UI/LoadingSpinner.jsx';
+import Movie from './Movie/Movie';
+import LoadingSpinner from '../UI/LoadingSpinner';
+import { MovieInterface } from '../../interfaces/MovieInterface';
 
-const AvailableMovies = props => {
-  const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [moviesIsLoaded, setMoviesIsLoaded] = useState(true);
+interface AvailableMoviesProps {
+  searchResult: string;
+}
+
+/**
+ * @param searchResult название фильма
+ * @returns AvailableMovies Component
+ */
+const AvailableMovies: React.FC<AvailableMoviesProps> = ({
+  searchResult,
+}): React.ReactElement => {
+  const [movies, setMovies] = useState<Array<MovieInterface>>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [moviesIsLoaded, setMoviesIsLoaded] = useState<boolean>(true);
 
   const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const request = props.searchResult;
+        const request = searchResult;
         setIsLoading(true);
         setMoviesIsLoaded(false);
         const res = await fetch(
@@ -26,19 +37,21 @@ const AvailableMovies = props => {
           throw new Error('Movie not found');
         }
 
-        const filteredData = resData.results.filter(data => data.poster_path);
+        const filteredData = resData.results.filter(
+          (data: MovieInterface) => data.poster_path
+        );
 
-        const movies = filteredData.map(result => {
+        const movies = filteredData.map((result: MovieInterface) => {
           return {
             id: result.id,
             title: result.title,
-            summary: result.overview,
-            poster:
+            overview: result.overview,
+            poster_path:
               result.poster_path !== null
                 ? `https://image.tmdb.org/t/p/w500${result.poster_path}`
                 : 'Постер не найден.',
-            year: result.release_date,
-            rating: result.vote_average,
+            release_date: result.release_date,
+            vote_average: result.vote_average,
           };
         });
 
@@ -51,7 +64,7 @@ const AvailableMovies = props => {
     };
 
     fetchMovies();
-  }, [props.searchResult, API_KEY]);
+  }, [searchResult, API_KEY]);
 
   return (
     <>
@@ -64,13 +77,13 @@ const AvailableMovies = props => {
         {movies.map(movie => {
           return (
             <Movie
-              name={movie.title}
+              title={movie.title}
               id={movie.id}
               key={movie.id}
-              poster={movie.poster}
-              year={movie.year}
-              rating={movie.rating}
-              summary={movie.summary}
+              poster_path={movie.poster_path}
+              release_date={movie.release_date}
+              vote_average={movie.vote_average}
+              overview={movie.overview}
             />
           );
         })}

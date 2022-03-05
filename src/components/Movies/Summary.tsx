@@ -1,7 +1,12 @@
 import React from 'react';
 import classes from './Summary.module.css';
 
-const Summary = () => {
+interface SummaryProps {}
+
+/**
+ * @returns Summary Component
+ */
+const Summary: React.FC<SummaryProps> = (): React.ReactElement => {
   return (
     <section className={classes.summary}>
       <h2>Ищите свои любимые фильмы</h2>

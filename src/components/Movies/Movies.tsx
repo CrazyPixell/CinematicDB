@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import Summary from './Summary.jsx';
-import AvailableMovies from './AvailableMovies.jsx';
+import Summary from './Summary';
+import AvailableMovies from './AvailableMovies';
 import SearchForm from '../UI/SearchForm';
 
-const Movies = props => {
-  const [searchResult, setSearchResult] = useState('Star');
+interface MoviesProps {}
 
-  const searchNameHandler = name => {
+const Movies: React.FC<MoviesProps> = (): React.ReactElement => {
+  const [searchResult, setSearchResult] = useState<string>('Star');
+
+  const searchNameHandler = (name: string): void => {
     setSearchResult(name);
   };
 

@@ -3,8 +3,18 @@ import classes from './HeaderAddButton.module.css';
 import PopcornIcon from '../UI/PopcornIcon.jsx';
 import QueueContext from '../../store/queue-context';
 
-const HeaderAddButton = props => {
-  const [btnState, setBtnState] = useState(false);
+interface HeaderAddButtonProps {
+  onClick: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  children: React.ReactNode;
+}
+
+const HeaderAddButton: React.FC<HeaderAddButtonProps> = ({
+  onClick,
+  type,
+  children,
+}): React.ReactElement => {
+  const [btnState, setBtnState] = useState<boolean>(false);
 
   const queueContext = useContext(QueueContext);
 
@@ -24,11 +34,11 @@ const HeaderAddButton = props => {
   }, [items]);
 
   return (
-    <button onClick={props.onClick} type={props.type} className={btnClasses}>
+    <button onClick={onClick} type={type} className={btnClasses}>
       <span className={classes.icon}>
         <PopcornIcon />
       </span>
-      <span>{props.children}</span>
+      <span>{children}</span>
       <span className={classes.badge}>{queueItemsAmount}</span>
     </button>
   );

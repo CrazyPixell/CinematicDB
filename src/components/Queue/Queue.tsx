@@ -3,39 +3,36 @@ import classes from './Queue.module.css';
 import Modal from '../UI/Modal';
 import QueueContext from '../../store/queue-context';
 import QueueItem from './QueueItem';
+import { MovieInterface } from '../../interfaces/MovieInterface';
 
-const Queue = props => {
+interface QueueProps {
+  onToggleQueue: () => void;
+}
+
+const Queue: React.FC<QueueProps> = ({ onToggleQueue }): React.ReactElement => {
   const queueContext = useContext(QueueContext);
 
-  const removeItemHandler = item => {
+  const removeItemHandler = (item: MovieInterface): void => {
     queueContext.removeItem({ ...item });
-  };
-
-  const addItemHandler = item => {
-    queueContext.addItem({ ...item });
   };
 
   const cartItems = (
     <ul className={classes['queue-items']}>
-      {queueContext.items.map(item => (
+      {queueContext.items.map((item: MovieInterface) => (
         <QueueItem
           key={item.id}
-          name={item.name}
+          title={item.title}
           onRemove={removeItemHandler.bind(null, item)}
-          onAdd={addItemHandler.bind(null, item)}
         />
       ))}
     </ul>
   );
 
   return (
-    <Modal onToggleCart={props.onToggleQueue}>
+    <Modal onToggleCart={onToggleQueue}>
       {cartItems}
       <div className={classes.actions}>
-        <button
-          onClick={props.onToggleQueue}
-          className={classes['button--alt']}
-        >
+        <button onClick={onToggleQueue} className={classes['button--alt']}>
           Закрыть
         </button>
       </div>
